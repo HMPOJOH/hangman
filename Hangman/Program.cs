@@ -6,7 +6,23 @@ namespace Hangman
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            //WE LIKE C#
+
+            string word = "we like c#";
+
+            char[] wordToCharArray = word.ToCharArray();
+
+            foreach (var character in wordToCharArray)
+                Console.Write(character);
+
+
+         //   Console.WriteLine("__ ____ __");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Guess the sentence:");
+            
+
         }
     }
 }
