@@ -25,16 +25,18 @@ namespace Hangman
 
 
             }
-      
 
+
+            int attempts = 10;
 
          
-            while (currentStatus.Contains('_')){
+            while (currentStatus.Contains('_') && attempts > 0){
                 //print current status
 
-               // foreach (var character in wordToCharArray)
+                // foreach (var character in wordToCharArray)
                 //    Console.Write(character);
 
+                Console.WriteLine($"attempts left: {attempts}");
                 foreach (var character in currentStatus)
                 Console.Write(character);
          
@@ -47,9 +49,14 @@ namespace Hangman
                     if (wordToCharArray[i] == guess.ToCharArray()[0])
                         currentStatus[i] = guess.ToCharArray()[0];
 
-
+                attempts--;
 
             }
+
+            if(currentStatus.Contains('_'))
+                Console.WriteLine("Bad luck!");
+            else
+                Console.WriteLine("Good work!");
 
 
         }
