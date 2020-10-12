@@ -8,10 +8,17 @@ namespace Hangman
         static void Main(string[] args)
         {
 
-            //WE LIKE C#
 
-            string word = "we like c#";
-            
+            Console.WriteLine("Hi players. This is the hangman game!");
+            Console.WriteLine("Player one, type a word and don't let player 2 see");
+            string word = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("Player two, now it's your turn to guess the word!");
+
+
+
+            //string word = "we like c#";
+
 
             char[] wordToCharArray = word.ToCharArray();
             char[] currentStatus = new char[wordToCharArray.Length];
@@ -50,13 +57,13 @@ namespace Hangman
                         currentStatus[i] = guess.ToCharArray()[0];
 
                 attempts--;
-
+                Console.Clear();
             }
 
             if(currentStatus.Contains('_'))
-                Console.WriteLine("Bad luck!");
+                Console.WriteLine("Bad luck! The correct word is "+ word);
             else
-                Console.WriteLine("Good work!");
+                Console.WriteLine("Good work! You nailed the word," + word);
 
 
         }
