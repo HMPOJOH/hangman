@@ -12,32 +12,14 @@ namespace Hangman
         static void Main(string[] args)
         {
 
-            //Startup Game - Player one will enter a word
-            string word = GetWordFromPlayerOne();
+            StartGame hangmanGame = new StartGame();
+            hangmanGame.StartGuessing();
+            hangmanGame.CheckIfPlayerTwoWon();
 
-            GuessTheWord hangmanGame = new GuessTheWord(word);
-         
-           
+
         }
       
-        public static string GetWordFromPlayerOne()
-       {
-           Console.WriteLine("Hi players. This is the hangman game!");
-           string word = "";
-
-           while (true) {
-               Console.WriteLine("Player one, type a word and don't let player 2 see");
-               word = Console.ReadLine();
-               if (word.Length <= 0)
-                   Console.WriteLine("You need to enter a valid word");
-               else
-                   break;
-
-           }
-           Console.Clear();
-           return word;
-
-       }
+ 
 
        
     }

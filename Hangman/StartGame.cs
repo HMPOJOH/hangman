@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hangman
 {
-    class GuessTheWord
+    class StartGame
     {
         private char[] wordToCharArray; //Word to charArray
         private char[] hiddenWord; //Word displaying on the screen
@@ -15,12 +15,34 @@ namespace Hangman
 
         char guess; //Guess from Player 2
 
-        public GuessTheWord(string word)
+        public StartGame()
         {
-            this.word = word;
+
+            Console.WriteLine("Hi players. This is the hangman game!");
+            string word = "";
+
+            while (true)
+            {
+                Console.WriteLine("Player one, type a word and don't let player 2 see");
+                word = Console.ReadLine();
+                if (word.Length <= 0)
+                    Console.WriteLine("You need to enter a valid word");
+                else
+                    break;
+
+            }
+            Console.Clear();
+
+           
+
+        }
+
+
+        public void StartGuessing()
+        {
+           
             wordToCharArray = word.ToCharArray();
             hiddenWord = new char[wordToCharArray.Length];
-
             SetNumberOfAttempts();
             SetHiddenWord();
 
@@ -69,9 +91,9 @@ namespace Hangman
                 Console.Clear();
             }
             Console.ForegroundColor = ConsoleColor.White;
-            CheckIfPlayerTwoWon();
+            
         }
-        private void CheckIfGuessIsCorrect()
+        public void CheckIfGuessIsCorrect()
         {
             if (word.Contains(guess))
             {
@@ -88,7 +110,7 @@ namespace Hangman
             Console.ReadLine(); //Wait for user input
 
         }
-        private void CheckIfPlayerTwoWon()
+        public void CheckIfPlayerTwoWon()
         {
             if (hiddenWord.Contains('-'))
                 Console.WriteLine($"Bad luck! The correct word is {word}");
