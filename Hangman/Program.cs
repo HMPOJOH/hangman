@@ -13,8 +13,9 @@ namespace Hangman
         {
 
             //Startup Game - Player one will enter a word
-            string word = GetWordFromPlayerOne();
 
+
+            string word = GetWordFromPlayerOne();
             GuessTheWord hangmanGame = new GuessTheWord(word);
          
            

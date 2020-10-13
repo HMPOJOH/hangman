@@ -59,25 +59,29 @@ namespace Hangman
                 else
                 {
                     //update hidden word if guess is correct
-                    UpdateHiddenWord();
+                   
 
                     guesses.Append(guess + " "); //Add the guess to the guess string.
                     attempts--; //remove attempt
 
-                    CheckIfGuessIsCorrect();
+                    if(CheckIfGuessIsCorrect())
+                        UpdateHiddenWord();
                 }
                 Console.Clear();
             }
             Console.ForegroundColor = ConsoleColor.White;
             CheckIfPlayerTwoWon();
         }
-        private void CheckIfGuessIsCorrect()
+        private bool CheckIfGuessIsCorrect()
         {
+
+            bool correctGuess = false;
             if (word.Contains(guess))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("CORRECT! Press Enter to continue.");
                  Console.ForegroundColor = ConsoleColor.White;
+                correctGuess = true;
 
             }
             else
@@ -86,6 +90,7 @@ namespace Hangman
                 Console.WriteLine("WRONG GUESS! Press Enter to continue.");
             }
             Console.ReadLine(); //Wait for user input
+            return correctGuess;
 
         }
         private void CheckIfPlayerTwoWon()
