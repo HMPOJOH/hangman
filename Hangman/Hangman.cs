@@ -7,11 +7,9 @@ using System.Text.RegularExpressions;
 namespace Hangman
 {
     class Hangman
-    {
-        // todo: recuding the number of fields            
-        private string word; //Word from player One
-        private char[] wordToCharArray; //Word to charArray  
-        private int attempts;
+    {                  
+        private string word; //Word from player One        
+        private int attempts; // No of guesses
         private StringBuilder guesses = new StringBuilder(); //All unique guesses from Player 2
         char guess; //Guess from Player 2
 
@@ -21,15 +19,11 @@ namespace Hangman
         }        
 
         public void Run()
-        {
-            wordToCharArray = word.ToCharArray();           
-
-            SetNumberOfAttempts();           
+        {                    
+            SetNumberOfAttempts();         
             
-
             while (!CheckIfCorrectWord() && attempts > 0)
-            {
-                Console.ForegroundColor = ConsoleColor.White;
+            {            
 
                 PrintHiddenWord();
 
@@ -39,36 +33,44 @@ namespace Hangman
                 //print attempts
                 Console.WriteLine($"attempts left: {attempts}");
 
-                //Let Player 2 guess
-                Console.WriteLine("Guess a character:");
-                string input = Console.ReadLine().ToUpper();
-
-                if (!isInputGuessValid(input))
-                    continue; //If not valid continue in order to let the player guess again
-                else
-                    guess = input.ToCharArray()[0];
-
-                //Check if already
-                if (guesses.ToString().Contains(guess))
-                {
-                    Console.WriteLine("You already guessed the character " + guess);
-                    Console.ReadLine(); //Press enter
-
-                    Console.Clear();
+                //Get Player 2 guess and check if it is valid. Or if its already guessed.
+                if (!GetValidPlayer2Guess() || CheckIfAlreadyGussed())                
                     continue;
-                }//otherwise proceed with guess
-                else
-                {                   
-
-                    guesses.Append(guess + " "); //Add the guess to the guess string.
-                    attempts--; //remove attempt
-                    CheckIfGuessIsCorrect();
-
-                }
+                          
                 Console.Clear();
-            }
-            Console.ForegroundColor = ConsoleColor.White;
+            }            
             CheckIfPlayerTwoWon();           
+        }
+
+        private bool CheckIfAlreadyGussed()
+        {
+            if (guesses.ToString().Contains(guess))
+            {   
+                Console.WriteLine("You already guessed the character " + guess);
+                Console.ReadLine(); //Press enter    
+                Console.Clear();
+                return true;
+            }//otherwise proceed with guess
+            else
+            {
+                guesses.Append(guess + " "); //Add the guess to the guess string.
+                attempts--; //remove attempt
+                CheckIfGuessIsCorrect();
+                return false;
+            }
+        }
+
+        private bool GetValidPlayer2Guess()
+        {
+            Console.WriteLine("Guess a character:");
+            string input = Console.ReadLine().ToUpper();
+
+            if (!IsInputGuessValid(input))
+                return false; //If not valid continue in order to let the player guess again
+            else
+                guess = input.ToCharArray()[0];
+
+            return true;
         }
 
         private void CheckIfGuessIsCorrect()
@@ -76,39 +78,36 @@ namespace Hangman
             if (word.Contains(guess))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("CORRECT! Press Enter to continue.");
-                Console.ForegroundColor = ConsoleColor.White;
-                
-
+                Console.WriteLine("CORRECT! Press Enter to continue.");                              
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("WRONG GUESS! Press Enter to continue.");
             }
-            Console.ReadLine(); //Wait for user input           
-
+            Console.ReadLine(); //Wait for user input     
+            Console.ForegroundColor = ConsoleColor.White;
         }
         private void CheckIfPlayerTwoWon()
-        {       
-            
+        {            
             if (!CheckIfCorrectWord())
                 Console.WriteLine($"Bad luck! The correct word is {word}");
             else
                 Console.WriteLine($"Good work! You nailed the word, {word}");
         }    
 
-        public bool isInputGuessValid(string input) // todo: first letter capital
+        public bool IsInputGuessValid(string input) 
         {
-            string invalidCharacters = "\"%£@#";
+            string invalidCharacters = "\"%£@#0123456789";
 
             if (input == "" || input.Length > 1 || invalidCharacters.Contains(input.ToCharArray()[0]))
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid character");
                 Console.ReadLine();
                 Console.Clear();
+                Console.ForegroundColor = ConsoleColor.White;
                 return false;
-
             }
             else
                 return true;
@@ -117,7 +116,7 @@ namespace Hangman
 
         public void PrintHiddenWord()
         {
-            foreach (var character in wordToCharArray)
+            foreach (var character in word.ToCharArray())
             {
                 if (guesses.ToString().Contains(character) || (character == ' ' ) )
                     Console.Write(character);
@@ -129,7 +128,7 @@ namespace Hangman
 
         public bool CheckIfCorrectWord()
         {
-            foreach (var character in wordToCharArray)
+            foreach (var character in word.ToCharArray())
             {
                 if (!guesses.ToString().Contains(character))
                     return false; ;
