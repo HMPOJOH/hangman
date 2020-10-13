@@ -13,8 +13,6 @@ namespace Hangman
         {
 
             //Startup Game - Player one will enter a word
-
-
             string word = GetWordFromPlayerOne();
 
             /*
@@ -23,7 +21,8 @@ namespace Hangman
             h.Run();
             */
 
-            var h = new GuessTheWord(word); // todo: nameing
+            var h = new Hangman(word); // todo: nameing
+            h.Run();
          
            
         }

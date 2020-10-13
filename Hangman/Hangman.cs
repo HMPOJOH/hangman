@@ -2,41 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Hangman
 {
-    class GuessTheWord
+    class Hangman
     {
-
-        // todo: recuding the number of fields
-
-        private char[] wordToCharArray; //Word to charArray
-        private char[] hiddenWord; //Word displaying on the screen
+        // todo: recuding the number of fields            
         private string word; //Word from player One
+        private char[] wordToCharArray; //Word to charArray  
         private int attempts;
         private StringBuilder guesses = new StringBuilder(); //All unique guesses from Player 2
-
         char guess; //Guess from Player 2
 
-        public GuessTheWord(string word)
+        public Hangman(string word)
+        {         
+        this.word = word;            
+        }        
+
+        public void Run()
         {
-            // todo: split this method (1-7 lines per method)
+            wordToCharArray = word.ToCharArray();           
 
-            // todo: Move this to a method
+            SetNumberOfAttempts();           
+            
 
-            this.word = word;
-            wordToCharArray = word.ToCharArray();
-            hiddenWord = new char[wordToCharArray.Length];
-
-            SetNumberOfAttempts();
-            SetHiddenWord();
-
-           
-
-            while (hiddenWord.Contains('-') && attempts > 0)
+            while (!CheckIfCorrectWord() && attempts > 0)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                
+
                 PrintHiddenWord();
 
                 //print guesses
@@ -54,7 +48,7 @@ namespace Hangman
                 else
                     guess = input.ToCharArray()[0];
 
-                //Check if alreadyu
+                //Check if already
                 if (guesses.ToString().Contains(guess))
                 {
                     Console.WriteLine("You already guessed the character " + guess);
@@ -64,31 +58,27 @@ namespace Hangman
                     continue;
                 }//otherwise proceed with guess
                 else
-                {
-                    //update hidden word if guess is correct
-                   
+                {                   
 
                     guesses.Append(guess + " "); //Add the guess to the guess string.
                     attempts--; //remove attempt
+                    CheckIfGuessIsCorrect();
 
-                    if(CheckIfGuessIsCorrect())
-                        UpdateHiddenWord();
                 }
                 Console.Clear();
             }
             Console.ForegroundColor = ConsoleColor.White;
-            CheckIfPlayerTwoWon();
+            CheckIfPlayerTwoWon();           
         }
-        private bool CheckIfGuessIsCorrect()
-        {
 
-            bool correctGuess = false;
+        private void CheckIfGuessIsCorrect()
+        {            
             if (word.Contains(guess))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("CORRECT! Press Enter to continue.");
-                 Console.ForegroundColor = ConsoleColor.White;
-                correctGuess = true;
+                Console.ForegroundColor = ConsoleColor.White;
+                
 
             }
             else
@@ -96,24 +86,17 @@ namespace Hangman
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("WRONG GUESS! Press Enter to continue.");
             }
-            Console.ReadLine(); //Wait for user input
-            return correctGuess;
+            Console.ReadLine(); //Wait for user input           
 
         }
         private void CheckIfPlayerTwoWon()
-        {
-            if (hiddenWord.Contains('-'))
+        {       
+            
+            if (!CheckIfCorrectWord())
                 Console.WriteLine($"Bad luck! The correct word is {word}");
             else
                 Console.WriteLine($"Good work! You nailed the word, {word}");
-        }
-
-        private void UpdateHiddenWord()
-        {
-            for (int i = 0; i < wordToCharArray.Length; i++)
-                if (wordToCharArray[i] == guess)
-                    hiddenWord[i] = guess;
-        }
+        }    
 
         public bool isInputGuessValid(string input) // todo: first letter capital
         {
@@ -134,31 +117,30 @@ namespace Hangman
 
         public void PrintHiddenWord()
         {
-            foreach (var character in hiddenWord)
-                Console.Write(character);
+            foreach (var character in wordToCharArray)
+            {
+                if (guesses.ToString().Contains(character) || (character == ' ' ) )
+                    Console.Write(character);
+                else
+                    Console.Write("-");
+            }                
             Console.WriteLine();
+        }
+
+        public bool CheckIfCorrectWord()
+        {
+            foreach (var character in wordToCharArray)
+            {
+                if (!guesses.ToString().Contains(character))
+                    return false; ;
+            }
+            return true;
         }
 
         public void SetNumberOfAttempts()
         { //Set number of Attempts
             attempts = word.Replace(" ", "").Length;
-        }
-
-        public void SetHiddenWord()
-        {
-            for (int i = 0; i < wordToCharArray.Length; i++)
-            {
-                if (wordToCharArray[i] == ' ')
-                    hiddenWord[i] = ' ';
-                else
-                    hiddenWord[i] = '-';
-
-
-            }
-        }
-
-
-
+        }        
 
     }
 }
