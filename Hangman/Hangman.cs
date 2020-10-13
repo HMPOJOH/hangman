@@ -32,7 +32,7 @@ namespace Hangman
                 //print attempts
                 Console.WriteLine($"Attempts left: {attempts}");
 
-                //Get Player 2 guess and check if it is valid. Or if its already guessed.
+                //Get Player2 guess. Check if it is valid or if its already guessed.
                 if (!GetValidPlayer2Guess() || CheckIfAlreadyGussed())                
                     continue;
                           
@@ -61,7 +61,7 @@ namespace Hangman
 
         private bool GetValidPlayer2Guess()
         {
-            Console.WriteLine("Guess a character:");
+            Console.Write("Guess a character : ");
             string input = Console.ReadLine().ToUpper();
 
             if (!IsInputGuessValid(input))
