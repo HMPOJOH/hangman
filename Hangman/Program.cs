@@ -35,7 +35,7 @@ namespace Hangman
 
            }
            Console.Clear();
-           return word;
+            return word.ToUpper(); ;
 
        }
 

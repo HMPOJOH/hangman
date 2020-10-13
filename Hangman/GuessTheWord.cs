@@ -40,7 +40,7 @@ namespace Hangman
 
                 //Let Player 2 guess
                 Console.WriteLine("Guess a character:");
-                string input = Console.ReadLine();
+                string input = Console.ReadLine().ToUpper();
 
                 if (!isInputGuessValid(input))
                     continue; //If not valid continue in order to let the player guess again
