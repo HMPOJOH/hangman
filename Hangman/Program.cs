@@ -12,12 +12,12 @@ namespace Hangman
     {
         static void Main(string[] args)
         {
-            //Startup Game - Player one will enter a word
-            string word = GetWordFromPlayerOne(invalidList);
-
             string invalidCharacters = "\"%£@#0123456789";
             List<char> invalidList = new List<char>();
             invalidList.AddRange(invalidCharacters);
+
+            //Startup Game - Player one will enter a word
+            string word = GetWordFromPlayerOne(invalidList);            
 
             // Play the game
             var h = new Hangman(word, invalidList); 

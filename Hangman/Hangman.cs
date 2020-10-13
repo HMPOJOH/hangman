@@ -15,10 +15,12 @@ namespace Hangman
         private List<Char> guesses = new List<char>(); 
         // todo: look at some other datatype. List<char>. Hash<char>
         char guess; //Guess from Player 2 // todo: maybe remove the field
+        List<char> invalidList = new List<char>();
 
-        public Hangman(string word)
+        public Hangman(string word, List<char> invalidList)
         {
             this.word = word;
+            this.invalidList = invalidList;
         }
 
         public void Run()
@@ -112,9 +114,9 @@ namespace Hangman
 
         public bool IsInputGuessValid(string input)
         {
-            string invalidCharacters = "\"%£@#0123456789";
+           // string invalidCharacters = "\"%£@#0123456789";
 
-            if (input == "" || input.Length > 1 || invalidCharacters.Contains(input.ToCharArray()[0]))
+            if (input == "" || input.Length > 1 || invalidList.Contains(input.ToCharArray()[0]))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid character");
