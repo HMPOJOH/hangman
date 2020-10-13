@@ -16,11 +16,19 @@ namespace Hangman
 
 
             string word = GetWordFromPlayerOne();
-            GuessTheWord hangmanGame = new GuessTheWord(word);
+
+            /*
+             Something like this:
+            var h = new GuessTheWord();
+            h.Run();
+            */
+
+            var h = new GuessTheWord(word); // todo: nameing
          
            
         }
-      
+
+        // GetSecretWordFromPlayerOne
         public static string GetWordFromPlayerOne()
        {
            Console.WriteLine("Hi players. This is the hangman game!");

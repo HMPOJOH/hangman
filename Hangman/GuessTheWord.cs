@@ -7,6 +7,9 @@ namespace Hangman
 {
     class GuessTheWord
     {
+
+        // todo: recuding the number of fields
+
         private char[] wordToCharArray; //Word to charArray
         private char[] hiddenWord; //Word displaying on the screen
         private string word; //Word from player One
@@ -17,6 +20,10 @@ namespace Hangman
 
         public GuessTheWord(string word)
         {
+            // todo: split this method (1-7 lines per method)
+
+            // todo: Move this to a method
+
             this.word = word;
             wordToCharArray = word.ToCharArray();
             hiddenWord = new char[wordToCharArray.Length];
@@ -108,7 +115,7 @@ namespace Hangman
                     hiddenWord[i] = guess;
         }
 
-        public bool isInputGuessValid(string input)
+        public bool isInputGuessValid(string input) // todo: first letter capital
         {
             string invalidCharacters = "\"%£@#";
 
