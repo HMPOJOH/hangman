@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,44 +8,56 @@ using System.Text.RegularExpressions;
 namespace Hangman
 {
     class Hangman
-    {                  
+    {
         private string word; //Word from player One        
         private int attempts; // No of guesses
-        private StringBuilder guesses = new StringBuilder(); //All unique guesses from Player 2
-        char guess; //Guess from Player 2
+        //private StringBuilder guesses = new StringBuilder(); //All unique guesses from Player 2 
+        private List<Char> guesses = new List<char>(); 
+        // todo: look at some other datatype. List<char>. Hash<char>
+        char guess; //Guess from Player 2 // todo: maybe remove the field
 
         public Hangman(string word)
-        {         
-        this.word = word;            
-        }        
+        {
+            this.word = word;
+        }
 
         public void Run()
-        {                    
-            SetNumberOfAttempts();         
-            
+        {
+            SetNumberOfAttempts();
+
             while (!CheckIfCorrectWord() && attempts > 0)
-            {           
+            {
                 PrintHiddenWord();
 
                 //print guesses
-                Console.WriteLine(guesses.ToString());
+                PrintGuesses();
+                //Console.WriteLine(guesses.ToString());
 
                 //print attempts
                 Console.WriteLine($"Attempts left: {attempts}");
 
                 //Get Player2 guess. Check if it is valid or if its already guessed.
-                if (!GetValidPlayer2Guess() || CheckIfAlreadyGussed())                
+                if (!GetValidPlayer2Guess() || CheckIfAlreadyGussed())
                     continue;
-                          
+
                 Console.Clear();
-            }            
-            CheckIfPlayerTwoWon();           
+            }
+            CheckIfPlayerTwoWon();
+        }
+
+        private void PrintGuesses()
+        {
+            foreach (char c in guesses)
+            {
+                Console.Write(c+" ");
+            }
+            Console.WriteLine();
         }
 
         private bool CheckIfAlreadyGussed()
         {
-            if (guesses.ToString().Contains(guess))
-            {   
+            if (guesses.Contains(guess))
+            {
                 Console.WriteLine("You already guessed the character " + guess);
                 Console.ReadLine(); //Press enter    
                 Console.Clear();
@@ -52,7 +65,9 @@ namespace Hangman
             }//otherwise proceed with guess
             else
             {
-                guesses.Append(guess + " "); //Add the guess to the guess string.
+                //Add the guess to the guess string.
+                //guesses.Append(guess + " ");
+                guesses.Add(guess);
                 attempts--; //remove attempt
                 CheckIfGuessIsCorrect();
                 return false;
@@ -73,11 +88,11 @@ namespace Hangman
         }
 
         private void CheckIfGuessIsCorrect()
-        {            
+        {
             if (word.Contains(guess))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("CORRECT! Press Enter to continue.");                              
+                Console.WriteLine("CORRECT! Press Enter to continue.");
             }
             else
             {
@@ -88,14 +103,14 @@ namespace Hangman
             Console.ForegroundColor = ConsoleColor.White;
         }
         private void CheckIfPlayerTwoWon()
-        {            
+        {
             if (!CheckIfCorrectWord())
                 Console.WriteLine($"Bad luck! The correct word is {word}");
             else
                 Console.WriteLine($"Good work! You nailed the word, {word}");
-        }    
+        }
 
-        public bool IsInputGuessValid(string input) 
+        public bool IsInputGuessValid(string input)
         {
             string invalidCharacters = "\"%£@#0123456789";
 
@@ -117,19 +132,22 @@ namespace Hangman
         {
             foreach (var character in word.ToCharArray())
             {
-                if (guesses.ToString().Contains(character) || (character == ' ' ) )
+                if (guesses.Contains(character) || (character == ' '))
                     Console.Write(character);
                 else
                     Console.Write("-");
-            }                
+            }
             Console.WriteLine();
         }
 
+        // todo: naming 
+        // HasOneCharacter
+        // ContainsBlaBla
         public bool CheckIfCorrectWord()
         {
             foreach (var character in word.ToCharArray())
             {
-                if (!guesses.ToString().Contains(character))
+                if (!guesses.Contains(character) && character!=' ' )
                     return false; ;
             }
             return true;
@@ -137,8 +155,8 @@ namespace Hangman
 
         public void SetNumberOfAttempts()
         { //Set number of Attempts
-            attempts = word.Replace(" ", "").Length;
-        }        
+            attempts = word.Replace(" ", "").Length + 2;
+        }
 
     }
 }
