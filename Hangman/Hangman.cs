@@ -23,15 +23,14 @@ namespace Hangman
             SetNumberOfAttempts();         
             
             while (!CheckIfCorrectWord() && attempts > 0)
-            {            
-
+            {           
                 PrintHiddenWord();
 
                 //print guesses
                 Console.WriteLine(guesses.ToString());
 
                 //print attempts
-                Console.WriteLine($"attempts left: {attempts}");
+                Console.WriteLine($"Attempts left: {attempts}");
 
                 //Get Player 2 guess and check if it is valid. Or if its already guessed.
                 if (!GetValidPlayer2Guess() || CheckIfAlreadyGussed())                

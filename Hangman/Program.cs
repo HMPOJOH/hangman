@@ -11,19 +11,12 @@ namespace Hangman
     {
         static void Main(string[] args)
         {
-
             //Startup Game - Player one will enter a word
-            string word = GetWordFromPlayerOne();
+            string word = GetWordFromPlayerOne();            
 
-            /*
-             Something like this:
-            var h = new GuessTheWord();
-            h.Run();
-            */
-
-            var h = new Hangman(word); // todo: nameing
-            h.Run();
-         
+            // Play the game
+            var h = new Hangman(word); 
+            h.Run();         
            
         }
 
@@ -46,7 +39,6 @@ namespace Hangman
             return word.ToUpper(); ;
 
        }
-
        
     }
 }
