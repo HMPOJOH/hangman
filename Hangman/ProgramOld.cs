@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Hangman
 {
-    class Program
+    class ProgramOld
     {
         static void Main(string[] args)
         {
@@ -20,7 +20,7 @@ namespace Hangman
             string word = GetWordFromPlayerOne(invalidList);            
 
             // Play the game
-            var h = new Hangman(word, invalidList); 
+            var h = new HangmanOld(word, invalidList); 
             h.Run();         
            
         }

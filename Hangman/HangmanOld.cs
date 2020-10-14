@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Hangman
 {
-    class Hangman
+    class HangmanOld
     {
         private string word; //Word from player One        
         private int attempts; // No of guesses
@@ -17,7 +17,7 @@ namespace Hangman
         char guess; //Guess from Player 2 // todo: maybe remove the field
         List<char> invalidList = new List<char>();
 
-        public Hangman(string word, List<char> invalidList)
+        public HangmanOld(string word, List<char> invalidList)
         {
             this.word = word;
             this.invalidList = invalidList;
