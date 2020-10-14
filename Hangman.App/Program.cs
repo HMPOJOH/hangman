@@ -13,6 +13,7 @@ namespace Hangman.App
             while (!hangman.IsCorrectCompleteWord() && hangman._nrOfGuesses>0)
             {
                 Console.WriteLine($"Attempts left: {hangman._nrOfGuesses}");
+                
                 PrintAllCorrectCharacters(hangman);
 
                 Console.Write("Your previous guesses:  ");
@@ -26,17 +27,32 @@ namespace Hangman.App
 
 
                 if (result == Core.GuessResult.InvalidGuess)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("Invalid input!");
-                else if (result == Core.GuessResult.IncorrectGuess)                
-                    Console.WriteLine("Incorrect Guess!");              
+                }
+                else if (result == Core.GuessResult.IncorrectGuess)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Incorrect Guess!");
+                }
                 else if (result == Core.GuessResult.AlreadyGuessed)
-                    Console.WriteLine("You've already guessed that letter");                
-                else if (result == Core.GuessResult.CorrectGuess)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("You've already guessed that letter");
+                }
+
+
+                else if (result == Core.GuessResult.CorrectGuess) { 
                     //call method in core that updates
-                    Console.WriteLine("Correct Guess");
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Correct Guess");
+                }
 
                 Console.ReadLine();
                 Console.Clear();
+                Console.ResetColor();
             }
          
             Console.WriteLine("Game completed");
