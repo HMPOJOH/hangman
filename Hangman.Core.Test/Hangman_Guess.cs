@@ -51,5 +51,35 @@ namespace Hangman.Core.Test
             Assert.AreEqual(GuessResult.IncorrectGuess, result);
         }
 
+        [TestMethod]
+        public void should_return_True_when_guessed_all_correct_characters()
+        {
+            // Arrange
+            var hangman = new Hangman("KALLE", 5);
+            // Act
+            hangman.Guess("K");
+            hangman.Guess("A");
+            hangman.Guess("L");
+            hangman.Guess("L");
+            hangman.Guess("E");
+            // Assert
+            Assert.IsTrue(hangman.IsCorrectCompleteWord());
+        }
+
+        [TestMethod]
+        public void should_return_False_when_not_all_correct_characters()
+        {
+            // Arrange
+            var hangman = new Hangman("KALLE", 5);
+            // Act
+            hangman.Guess("K");
+            hangman.Guess("A");
+            hangman.Guess("L");
+            hangman.Guess("L");
+            hangman.Guess("Y");
+            // Assert
+            Assert.IsFalse(hangman.IsCorrectCompleteWord());
+        }
+
     }
 }
