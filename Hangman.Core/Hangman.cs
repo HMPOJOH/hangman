@@ -19,47 +19,28 @@ namespace Hangman.Core
             _secretWord = secretWord;
             _nrOfGuesses = nrOfGuesses;
             invalidList.AddRange("\"%£@#0123456789");
-            guesses = new List<char>();
-
-            // write code
+            guesses = new List<char>();           
         }
 
         public GuessResult Guess(string guess)
-        {
-            // write code
+        {           
             //1. check invalid input
             if (IsInvalidGuess(guess))
                 return Core.GuessResult.InvalidGuess;
             //2.Already Guessed
             else if (IsAlreadyGuessed(guess))
-                return Core.GuessResult.AlreadyGuessed;
-            
+                return Core.GuessResult.AlreadyGuessed;            
             else 
             {
-
                 FeedGuessesList(guess);
                 _nrOfGuesses--;
+
                 //3a. Check if we should return correct or incorrect
                 if (IsIncorrectGuess(guess))
                     return Core.GuessResult.IncorrectGuess;
                 else
                     return Core.GuessResult.CorrectGuess;
-
-
-            }
-                
-            
-          
-
-           
-
-            /*
-             * Here we should return the enums  CorrectGuess, IncorrectGuess, InvalidGuess, AlreadyGuessed
-             * 
-             * 
-             */
-
-            
+            }            
         }
 
         private void FeedGuessesList(string guess)

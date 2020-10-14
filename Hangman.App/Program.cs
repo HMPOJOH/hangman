@@ -10,47 +10,27 @@ namespace Hangman.App
 
             var hangman = new Core.Hangman("I LOVE PROGRAMMING".ToUpper(), 15);
 
-
-
             while (!hangman.IsCorrectCompleteWord() && hangman._nrOfGuesses>0)
             {
                 Console.WriteLine($"Attempts left: {hangman._nrOfGuesses}");
                 PrintAllCorrectCharacters(hangman);
 
                 Console.Write("Your previous guesses:  ");
-                PrintGuesses(hangman);
-                
+                PrintGuesses(hangman);                
 
                 Console.Write("Your guess: ");
                 string guess = Console.ReadLine();
-
-                /*
-                 M  ==> Correct
-                 A ==> Correct
-                 MM ==> Invalid
-                 # ==> Invalid
-                 Q ==> Wrong
-                   ==> AlreadyGuessed
-
-                 */
-
 
                 //core.GuessResult.   CorrectGuess, IncorrectGuess, InvalidGuess, AlreadyGuessed
                 var result = hangman.Guess(guess.ToUpper());
 
 
-
                 if (result == Core.GuessResult.InvalidGuess)
                     Console.WriteLine("Invalid input!");
-
-                else if (result == Core.GuessResult.IncorrectGuess)
-                {
-                    Console.WriteLine("Incorrect Guess!");
-                }
+                else if (result == Core.GuessResult.IncorrectGuess)                
+                    Console.WriteLine("Incorrect Guess!");              
                 else if (result == Core.GuessResult.AlreadyGuessed)
-                {
-                    Console.WriteLine("You've already guessed that letter");
-                }
+                    Console.WriteLine("You've already guessed that letter");                
                 else if (result == Core.GuessResult.CorrectGuess)
                     //call method in core that updates
                     Console.WriteLine("Correct Guess");
@@ -65,7 +45,6 @@ namespace Hangman.App
                 Console.WriteLine("Good work, you completed the whole word!");
             else
                 Console.WriteLine("Sorry, you didn't get the complete word, good luck next time!");
-
 
         }
 

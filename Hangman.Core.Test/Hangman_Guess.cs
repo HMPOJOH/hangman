@@ -10,12 +10,9 @@ namespace Hangman.Core.Test
         {
             // Arrange
             var hangman = new Hangman("KALLE", 3);
-
             // Act
             GuessResult result = hangman.Guess("A");
-
             // Assert
-
             Assert.AreEqual(GuessResult.CorrectGuess, result);
         }
 
@@ -24,48 +21,35 @@ namespace Hangman.Core.Test
         {
             // Arrange
             var hangman = new Hangman("KALLE", 3);
-
             // Act
             GuessResult result = hangman.Guess("A");
             result = hangman.Guess("A");
-
             // Assert
-
             Assert.AreEqual(GuessResult.AlreadyGuessed, result);
         }
 
 
         [TestMethod]
-        public void should_return_InvalidCharacter_when_guessing_8()
+        public void should_return_InvalidGuess_when_guessing_8()
         {
             // Arrange
             var hangman = new Hangman("KALLE", 3);
-
             // Act
-            GuessResult result = hangman.Guess("8");
-            
-
+            GuessResult result = hangman.Guess("8");          
             // Assert
-
             Assert.AreEqual(GuessResult.InvalidGuess, result);
         }
 
         [TestMethod]
-        public void should_return_InccoretCorrectGuess_when_guessing_A()
+        public void should_return_IncorrectGuess_when_guessing_A()
         {
             // Arrange
             var hangman = new Hangman("KALLE", 3);
-
             // Act
             GuessResult result = hangman.Guess("Y");
-
-
             // Assert
-
             Assert.AreEqual(GuessResult.IncorrectGuess, result);
         }
-
-
 
     }
 }
