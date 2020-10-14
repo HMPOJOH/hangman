@@ -35,7 +35,7 @@ namespace Hangman
                Console.WriteLine("Player one, type a word and don't let player 2 see");
                word = Console.ReadLine();
 
-               if (word.Length <= 0 && HasValidWord(invalidList, word))
+               if (word.Length <= 0 || HasInvalidWord(invalidList, word))
                    Console.WriteLine("You need to enter a valid word");
                else
                    break;
@@ -45,14 +45,14 @@ namespace Hangman
            return word.ToUpper(); 
         }
 
-        private static bool HasValidWord(List<char> invalidList, string word)
+        private static bool HasInvalidWord(List<char> invalidList, string word)
         {
             foreach (var character in word.ToCharArray())
             {
-                if (!invalidList.Contains(character))
-                    return false; ;
+                if (invalidList.Contains(character))
+                    return true; 
             }
-            return true;
+            return false;
         }
     }
 }
