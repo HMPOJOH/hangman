@@ -12,9 +12,9 @@ namespace Hangman
     {
         static void Main(string[] args)
         {
-            string invalidCharacters = "\"%£@#0123456789";
+            //setup invalid characters both for input word from Player One as well as for guess from Player Two
             List<char> invalidList = new List<char>();
-            invalidList.AddRange(invalidCharacters);
+            invalidList.AddRange("\"%£@#0123456789");
 
             //Startup Game - Player one will enter a word
             string word = GetWordFromPlayerOne(invalidList);            
