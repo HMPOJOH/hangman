@@ -2,6 +2,12 @@
 
 namespace Hangman.App
 {
+
+    // For clarity, add text "Press enter again" after user input 
+    // Array of words to guess from instead of a hardcoded word - or/and a choose a random word or get from a list
+    // Comment code for improved readabilit and perhaps some general documetation in program.cs (functions in core and visual code in App..
+    
+
     class Program
     {
         static void Main(string[] args)
@@ -37,8 +43,8 @@ namespace Hangman.App
                 }
                 else if (result == Core.GuessResult.AlreadyGuessed)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("You've already guessed that letter");
+                    Console.ForegroundColor = ConsoleColor.Yellow; 
+                    Console.WriteLine("You've already guessed that letter"); 
                 }
 
 
