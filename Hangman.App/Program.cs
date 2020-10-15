@@ -3,10 +3,24 @@
 namespace Hangman.App
 {
 
-    // For clarity, add text "Press enter again" after user input 
-    // Array of words to guess from instead of a hardcoded word - or/and a choose a random word or get from a list
-    // Comment code for improved readabilit and perhaps some general documetation in program.cs (functions in core and visual code in App..
-    
+    /*
+     * In Hangman.APP
+     * --------------------
+     * - All interaction with user
+     * - No logic
+     * 
+     * In Hangman.Core
+     * --------------------
+     * - All logic/validation etcetera
+     * - No Console.WriteLine
+     * 
+     * 
+     */
+
+
+
+
+   
 
     class Program
     {
@@ -14,20 +28,21 @@ namespace Hangman.App
         {
             Console.WriteLine("Welcome to hangman!");
 
-            var hangman = new Core.Hangman("I LOVE PROGRAMMING".ToUpper(), 15);
+            var hangman = new Core.Hangman(GenerateARandomWord(), 15);
 
+
+            //Keep playing while the user hasn't guessed the whole word or user has guesses left
             while (!hangman.IsCorrectCompleteWord() && hangman.NoOfGuesses>0)
             {
                 Console.WriteLine($"Attempts left: {hangman.NoOfGuesses}");
                 PrintAllCorrectCharacters(hangman);
 
-                Console.Write("Your previous guesses:  ");
                 PrintGuesses(hangman);                
 
                 Console.Write("Your guess: ");
                 string guess = Console.ReadLine();
 
-                //core.GuessResult.   CorrectGuess, IncorrectGuess, InvalidGuess, AlreadyGuessed
+                //Possible values are:  CorrectGuess, IncorrectGuess, InvalidGuess, AlreadyGuessed
                 var result = hangman.Guess(guess.ToUpper());
 
 
@@ -54,10 +69,11 @@ namespace Hangman.App
                     Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Correct Guess");
                 }
-
+                Console.ResetColor();
+                WaitForUserInput();
                 Console.ReadLine();
                 Console.Clear();
-                Console.ResetColor();
+                
             }
          
             Console.WriteLine("Game completed");
@@ -68,6 +84,24 @@ namespace Hangman.App
                 Console.WriteLine("Sorry, you didn't get the complete word, good luck next time!");
 
         }
+
+        private static void WaitForUserInput()
+        {
+           
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue");
+
+        }
+
+        private static string GenerateARandomWord()
+        {
+            string[] secretwords = new[] { "JAVA", "I LIKE C", "HM IS THE BEST", "BANANA", "BLUE CAR WITH WHEELS", "HELLO WORLD"};
+
+            Random random = new Random();
+            return secretwords[random.Next(0, 10)].ToUpper();
+
+        }
+
 
         private static void PrintAllCorrectCharacters(Core.Hangman hangman)
         {
@@ -84,9 +118,12 @@ namespace Hangman.App
 
         private static void PrintGuesses(Core.Hangman hangman)
         {
-            foreach (char c in hangman.guesses)
-            {
-                Console.Write(c + " ");
+            if(hangman.guesses != null && hangman.guesses.Count > 0){ 
+                Console.Write("Your previous guesses:  ");
+                foreach (char c in hangman.guesses)
+                {
+                    Console.Write(c + " ");
+                }
             }
             Console.WriteLine();
         }
