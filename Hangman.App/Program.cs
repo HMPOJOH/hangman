@@ -12,7 +12,7 @@ namespace Hangman.App
 
             while (!hangman.IsCorrectCompleteWord() && hangman.NoOfGuesses>0)
             {
-                Console.WriteLine($"Attempts left: {hangman._nrOfGuesses}");
+                Console.WriteLine($"Attempts left: {hangman.NoOfGuesses}");
                 PrintAllCorrectCharacters(hangman);
 
                 Console.Write("Your previous guesses:  ");

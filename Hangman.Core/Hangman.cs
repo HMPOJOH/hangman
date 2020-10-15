@@ -13,7 +13,6 @@ namespace Hangman.Core
         public List<Char> guesses  {get; }
 
 
-
         public Hangman(string secretWord, int nrOfGuesses)
         {
             SecretWord = secretWord;
