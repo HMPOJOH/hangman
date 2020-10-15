@@ -28,7 +28,6 @@ namespace Hangman.Core.Test
             Assert.AreEqual(GuessResult.AlreadyGuessed, result);
         }
 
-
         [TestMethod]
         public void should_return_InvalidGuess_when_guessing_8()
         {
@@ -50,19 +49,18 @@ namespace Hangman.Core.Test
             // Assert
             Assert.AreEqual(GuessResult.IncorrectGuess, result);
         }
- [TestMethod]
+
+        [TestMethod]
         public void should_return_2_attempts_when_guessed_one_time()
         {
             // Arrange
             var hangman = new Hangman("KALLE", 3);
             // Act
             hangman.Guess("Y");
-
-
-
             // Assert
             Assert.AreEqual(2, hangman._nrOfGuesses);
         }
+
         [TestMethod]
         public void should_return_True_when_guessed_all_correct_characters()
         {

@@ -10,9 +10,9 @@ namespace Hangman.App
 
             var hangman = new Core.Hangman("I LOVE PROGRAMMING".ToUpper(), 15);
 
-            while (!hangman.IsCorrectCompleteWord() && hangman._nrOfGuesses>0)
+            while (!hangman.IsCorrectCompleteWord() && hangman.NoOfGuesses>0)
             {
-                Console.WriteLine($"Attempts left: {hangman._nrOfGuesses}");
+                Console.WriteLine($"Attempts left: {hangman.NoOfGuesses}");
                 PrintAllCorrectCharacters(hangman);
 
                 Console.Write("Your previous guesses:  ");
@@ -50,7 +50,7 @@ namespace Hangman.App
 
         private static void PrintAllCorrectCharacters(Core.Hangman hangman)
         {
-            foreach (var character in hangman._secretWord.ToCharArray())
+            foreach (var character in hangman.SecretWord.ToCharArray())
             {
                 if (hangman.guesses.Contains(character) || (character == ' '))
                     Console.Write(character);

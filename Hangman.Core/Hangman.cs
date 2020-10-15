@@ -6,8 +6,8 @@ namespace Hangman.Core
 {
     public class Hangman
     {
-        public string _secretWord { get; }
-        public int _nrOfGuesses { set; get; }
+        public string SecretWord { get; }
+        public int NoOfGuesses { set; get; }
 
         private List<char> invalidList = new List<char>();
         public List<Char> guesses  {get; }
@@ -16,8 +16,8 @@ namespace Hangman.Core
 
         public Hangman(string secretWord, int nrOfGuesses)
         {
-            _secretWord = secretWord;
-            _nrOfGuesses = nrOfGuesses;
+            SecretWord = secretWord;
+            NoOfGuesses = nrOfGuesses;
             invalidList.AddRange("\"%£@#0123456789");
             guesses = new List<char>();           
         }
@@ -33,7 +33,7 @@ namespace Hangman.Core
             else 
             {
                 FeedGuessesList(guess);
-                _nrOfGuesses--;
+                NoOfGuesses--;
 
                 //3a. Check if we should return correct or incorrect
                 if (IsIncorrectGuess(guess))
@@ -58,7 +58,7 @@ namespace Hangman.Core
 
         private bool IsIncorrectGuess(string guess)
         {
-            if (_secretWord.Contains(guess))
+            if (SecretWord.Contains(guess))
                 return false;
             else
                 return true;
@@ -77,7 +77,7 @@ namespace Hangman.Core
         {
             bool test = true;
             
-            foreach (var character in _secretWord.ToCharArray())
+            foreach (var character in SecretWord.ToCharArray())
             {
                 if (!guesses.Contains(character) && character != ' ')
                     test = false; ;
