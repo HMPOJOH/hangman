@@ -26,7 +26,7 @@ namespace Hangman.App
     {
         static void Main(string[] args)
         {
-            
+          
             var hangman = new Core.Hangman(GenerateARandomWord(), 6);
 
 
@@ -78,25 +78,34 @@ namespace Hangman.App
                 Console.Clear();
                 
             }
-         
-            Console.WriteLine("Game completed");
+
+
+            PrintingTheEndOfTheGame(hangman);
+            
+                
+
+        }
+
+        private static void PrintingTheEndOfTheGame(Core.Hangman hangman)
+        {
+            Console.WriteLine("Game Ended");
 
             if (hangman.IsCorrectCompleteWord())
-                Console.WriteLine("Good work, you completed the whole word!");
+                Console.WriteLine($"Good work, you completed the whole word \"{hangman.SecretWord}\"!");
             else
             {
                 Console.WriteLine("Sorry, you didn't get the complete word, good luck next time!");
 
-                Console.WriteLine( "  +---+  " + "\n\r" +
+                Console.WriteLine("  +---+  " + "\n\r" +
                                    "  |   |  " + "\n\r" +
                                    "  O   |  " + "\n\r" +
                                    " /|\\  |  " + "\n\r" +
                                    " / \\  |  " + "\n\r" +
                                    "      |  " + "\n\r" +
                                    "=========");
+                Console.WriteLine();
+                Console.WriteLine($"The correct word is \"{hangman.SecretWord}\" ");
             }
-                
-
         }
 
         private static void PrintLivesLeft(Core.Hangman hangman)
@@ -178,9 +187,9 @@ namespace Hangman.App
 
         private static string GenerateARandomWord()
         {
-            string[] secretwords = new[] { "JAVA", "I LIKE C", "HM IS THE BEST", "BANANA", "BLUE CAR WITH WHEELS", "HELLO WORLD"};
+            string[] secretwords = new[] { "JAVA", "I LIKE C", "HM IS THE BEST COMPANY IN THE WORLD", "BANANA", "BLUE CAR WITH WHEELS", "HELLO WORLD", "bagpipes", "blizzard","PIZZA", "fluffiness", "BORÅS", "HAPPYBITS IS QUITE GOOD AS WELL" };
             Random random = new Random();
-            return secretwords[random.Next(6)].ToUpper();
+            return secretwords[random.Next(secretwords.Length)].ToUpper();
         }
 
 
