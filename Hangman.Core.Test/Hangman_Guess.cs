@@ -51,15 +51,27 @@ namespace Hangman.Core.Test
         }
 
         [TestMethod]
-        public void should_return_2_attempts_when_guessed_one_time()
+        public void should_return_2_attempts_when_guessed_one_time_incorrect()
         {
             // Arrange
             var hangman = new Hangman("KALLE", 3);
             // Act
             hangman.Guess("Y");
             // Assert
-            Assert.AreEqual(2, hangman._nrOfGuesses);
+            Assert.AreEqual(2, hangman._liveseLeft);
         }
+
+        [TestMethod]
+        public void should_return_3_attempts_when_guessed_one_time_correct()
+        {
+            // Arrange
+            var hangman = new Hangman("KALLE", 3);
+            // Act
+            hangman.Guess("K");
+            // Assert
+            Assert.AreEqual(3, hangman._liveseLeft);
+        }
+
 
         [TestMethod]
         public void should_return_True_when_guessed_all_correct_characters()

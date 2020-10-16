@@ -7,16 +7,16 @@ namespace Hangman.Core
     public class Hangman
     {
         public string SecretWord { get; }
-        public int NoOfGuesses { set; get; }
+        public int _liveseLeft { set; get; }
 
         private List<char> invalidList = new List<char>();
         public List<Char> guesses  {get; }
 
 
-        public Hangman(string secretWord, int nrOfGuesses)
+        public Hangman(string secretWord, int livesLeft)
         {
             SecretWord = secretWord;
-            NoOfGuesses = nrOfGuesses;
+            _liveseLeft = livesLeft;
             invalidList.AddRange("\"%£@#0123456789");
             guesses = new List<char>();           
         }
@@ -32,11 +32,15 @@ namespace Hangman.Core
             else 
             {
                 FeedGuessesList(guess);
-                NoOfGuesses--;
+                
 
                 //3a. Check if we should return correct or incorrect
                 if (IsIncorrectGuess(guess))
+                {
+                    _liveseLeft--;
                     return Core.GuessResult.IncorrectGuess;
+                }
+                    
                 else
                     return Core.GuessResult.CorrectGuess;
             }            
