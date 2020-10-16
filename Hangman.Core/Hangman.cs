@@ -7,7 +7,7 @@ namespace Hangman.Core
     public class Hangman
     {
         public string SecretWord { get; }
-        public int _liveseLeft { set; get; }
+        public int _livesLeft { set; get; }
 
         private List<char> invalidList = new List<char>();
         public List<Char> guesses  {get; }
@@ -16,7 +16,7 @@ namespace Hangman.Core
         public Hangman(string secretWord, int livesLeft)
         {
             SecretWord = secretWord;
-            _liveseLeft = livesLeft;
+            _livesLeft = livesLeft;
             invalidList.AddRange("\"%£@#0123456789");
             guesses = new List<char>();           
         }
@@ -37,7 +37,7 @@ namespace Hangman.Core
                 //3a. Check if we should return correct or incorrect
                 if (IsIncorrectGuess(guess))
                 {
-                    _liveseLeft--;
+                    _livesLeft--;
                     return Core.GuessResult.IncorrectGuess;
                 }
                     

@@ -58,7 +58,7 @@ namespace Hangman.Core.Test
             // Act
             hangman.Guess("Y");
             // Assert
-            Assert.AreEqual(2, hangman._liveseLeft);
+            Assert.AreEqual(2, hangman._livesLeft);
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace Hangman.Core.Test
             // Act
             hangman.Guess("K");
             // Assert
-            Assert.AreEqual(3, hangman._liveseLeft);
+            Assert.AreEqual(3, hangman._livesLeft);
         }
 
 

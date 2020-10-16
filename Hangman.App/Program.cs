@@ -31,7 +31,7 @@ namespace Hangman.App
 
 
             //Keep playing while the user hasn't guessed the whole word or user has guesses left
-            while (!hangman.IsCorrectCompleteWord() && hangman._liveseLeft>0)
+            while (!hangman.IsCorrectCompleteWord() && hangman._livesLeft>0)
             {
 
                 
@@ -161,12 +161,12 @@ namespace Hangman.App
            
             Console.WriteLine();
 
-            Console.WriteLine(hangmanPics[6- hangman._liveseLeft]);
+            Console.WriteLine(hangmanPics[6- hangman._livesLeft]);
             Console.WriteLine();
             Console.Write("Lives left:");
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.ForegroundColor = ConsoleColor.Red;
-            for (int i=0; i < hangman._liveseLeft; i++)
+            for (int i=0; i < hangman._livesLeft; i++)
                 Console.Write("♥");
 
             Console.WriteLine();
