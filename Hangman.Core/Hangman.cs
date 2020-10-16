@@ -7,7 +7,7 @@ namespace Hangman.Core
     public class Hangman
     {
         public string SecretWord { get; }
-        public int _liveseLeft { set; get; }
+        public int _livesLeft { set; get; }
 
         private List<char> invalidList = new List<char>();
         public List<Char> guesses  {get; }
