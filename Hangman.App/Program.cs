@@ -29,13 +29,14 @@ namespace Hangman.App
           
             var hangman = new Core.Hangman(GenerateARandomWord(), 6);
 
+            // OO: Instead of this comment, create a property (getter) in hangman that has similair name e.g while(hangman.KeepPlaying) {...}
 
             //Keep playing while the user hasn't guessed the whole word or user has guesses left
             while (!hangman.IsCorrectCompleteWord() && hangman._livesLeft>0)
             {
 
                 
-
+                // OO: Since you send "hangman" to a lot of methods you might create a field "_hangman" in "Program" instead
                 PrintLivesLeft(hangman);
                 
                 PrintAllCorrectCharacters(hangman);
@@ -45,10 +46,11 @@ namespace Hangman.App
                 Console.Write("Your guess: ");
                 string guess = Console.ReadLine();
 
+                // OO: Remove comment
                 //Possible values are:  CorrectGuess, IncorrectGuess, InvalidGuess, AlreadyGuessed
                 var result = hangman.Guess(guess.ToUpper());
 
-
+                // OO: Use a "switch" instead
                 if (result == Core.GuessResult.InvalidGuess)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;

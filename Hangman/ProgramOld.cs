@@ -1,4 +1,5 @@
-﻿using System;
+﻿// OO: Remove this project if you don't use it anymore
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

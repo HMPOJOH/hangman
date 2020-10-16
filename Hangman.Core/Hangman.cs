@@ -7,7 +7,7 @@ namespace Hangman.Core
     public class Hangman
     {
         public string SecretWord { get; }
-        public int _livesLeft { set; get; }
+        public int _liveseLeft { set; get; }
 
         private List<char> invalidList = new List<char>();
         public List<Char> guesses  {get; }
@@ -27,14 +27,17 @@ namespace Hangman.Core
             if (IsInvalidGuess(guess))
                 return Core.GuessResult.InvalidGuess;
             //2.Already Guessed
+            // OO: No need for "else"
             else if (IsAlreadyGuessed(guess))
-                return Core.GuessResult.AlreadyGuessed;            
-            else 
+                return Core.GuessResult.AlreadyGuessed;
+            // OO: No need for "else"
+            else
             {
                 FeedGuessesList(guess);
                 
 
                 //3a. Check if we should return correct or incorrect
+                // OO: detail, create a method named "IsCorrectGuess" instead
                 if (IsIncorrectGuess(guess))
                 {
                     _livesLeft--;
@@ -68,6 +71,7 @@ namespace Hangman.Core
 
         }
 
+        // OO: do a IsValidGuess instead
         private bool IsInvalidGuess(string guess)
         {
             if (guess == "" || guess.Length > 1 || invalidList.Contains(guess.ToCharArray()[0]))
