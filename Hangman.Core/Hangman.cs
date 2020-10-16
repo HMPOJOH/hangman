@@ -12,6 +12,18 @@ namespace Hangman.Core
         private List<char> invalidList = new List<char>();
         public List<Char> guesses  {get; }
 
+        public bool KeepPlaying { 
+            get
+            {
+                return (!IsCorrectCompleteWord() && _livesLeft > 0);
+
+
+            }
+        
+        
+        }
+
+
 
         public Hangman(string secretWord, int livesLeft)
         {
@@ -79,6 +91,10 @@ namespace Hangman.Core
             else
                 return false;
         }
+
+      
+
+
 
         public bool IsCorrectCompleteWord()
         {

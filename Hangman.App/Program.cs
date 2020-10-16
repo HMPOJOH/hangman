@@ -24,56 +24,67 @@ namespace Hangman.App
 
     class Program
     {
+
+        public static Core.Hangman _hangman;
+
+
         static void Main(string[] args)
         {
-          
-            var hangman = new Core.Hangman(GenerateARandomWord(), 6);
 
-            // OO: Instead of this comment, create a property (getter) in hangman that has similair name e.g while(hangman.KeepPlaying) {...}
+            _hangman = new Core.Hangman(GenerateARandomWord(), 6);
 
-            //Keep playing while the user hasn't guessed the whole word or user has guesses left
-            while (!hangman.IsCorrectCompleteWord() && hangman._livesLeft>0)
+            
+            while (_hangman.KeepPlaying)
             {
 
                 
-                // OO: Since you send "hangman" to a lot of methods you might create a field "_hangman" in "Program" instead
-                PrintLivesLeft(hangman);
+              
+                PrintLivesLeft();
                 
-                PrintAllCorrectCharacters(hangman);
+                PrintAllCorrectCharacters();
 
-                PrintGuesses(hangman);                
+                PrintGuesses();                
 
                 Console.Write("Your guess: ");
                 string guess = Console.ReadLine();
 
-                // OO: Remove comment
-                //Possible values are:  CorrectGuess, IncorrectGuess, InvalidGuess, AlreadyGuessed
-                var result = hangman.Guess(guess.ToUpper());
+               
+                var result = _hangman.Guess(guess.ToUpper());
 
-                // OO: Use a "switch" instead
-                if (result == Core.GuessResult.InvalidGuess)
+                switch (result)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Invalid input!");
-                }
-                else if (result == Core.GuessResult.IncorrectGuess)
-                {
+                    case Core.GuessResult.InvalidGuess:
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("Invalid input!");
+                            break;
+                        }
+                    case Core.GuessResult.IncorrectGuess:
+                    {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Incorrect Guess!");
-                }
-                else if (result == Core.GuessResult.AlreadyGuessed)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow; 
-                    Console.WriteLine("You've already guessed that letter"); 
-                }
+                        Console.WriteLine("Incorrect Guess!");
+                        break;
+
+                    }
+
+                    case Core.GuessResult.AlreadyGuessed:
+                    {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("You've already guessed that letter");
+                            break;
+
+                        }
+
+                    default:
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Correct Guess");
+                            break;
+                        }
 
 
-                else if (result == Core.GuessResult.CorrectGuess) { 
-                    //call method in core that updates
-
-                    Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Correct Guess");
                 }
+                
                 Console.ResetColor();
                 WaitForUserInput();
                 Console.ReadLine();
@@ -82,20 +93,28 @@ namespace Hangman.App
             }
 
 
-            PrintingTheEndOfTheGame(hangman);
+            PrintingTheEndOfTheGame();
             
                 
 
         }
 
-        private static void PrintingTheEndOfTheGame(Core.Hangman hangman)
+        private static void PrintingTheEndOfTheGame()
         {
+           
+            
+            
             Console.WriteLine("Game Ended");
 
-            if (hangman.IsCorrectCompleteWord())
-                Console.WriteLine($"Good work, you completed the whole word \"{hangman.SecretWord}\"!");
+            if (_hangman.IsCorrectCompleteWord())
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Good work, you completed the whole word \"{_hangman.SecretWord}\"!");
+                Console.ResetColor();
+            }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Sorry, you didn't get the complete word, good luck next time!");
 
                 Console.WriteLine("  +---+  " + "\n\r" +
@@ -106,11 +125,12 @@ namespace Hangman.App
                                    "      |  " + "\n\r" +
                                    "=========");
                 Console.WriteLine();
-                Console.WriteLine($"The correct word is \"{hangman.SecretWord}\" ");
+                Console.WriteLine($"The correct word is \"{_hangman.SecretWord}\" ");
+                Console.ResetColor();
             }
         }
 
-        private static void PrintLivesLeft(Core.Hangman hangman)
+        private static void PrintLivesLeft()
         {
 
             Console.WriteLine("HANGMAN GAME");
@@ -155,7 +175,7 @@ namespace Hangman.App
 "  +---+  " + "\n\r" +
 "  |   |  " + "\n\r" +
 "  O   |  " + "\n\r" +
-" /|\\ |  " + "\n\r" +
+" /|\\  |  " + "\n\r" +
 " /    |  " + "\n\r" +
 "      |  " + "\n\r" +
 "========="};
@@ -163,12 +183,12 @@ namespace Hangman.App
            
             Console.WriteLine();
 
-            Console.WriteLine(hangmanPics[6- hangman._livesLeft]);
+            Console.WriteLine(hangmanPics[6- _hangman._livesLeft]);
             Console.WriteLine();
             Console.Write("Lives left:");
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.ForegroundColor = ConsoleColor.Red;
-            for (int i=0; i < hangman._livesLeft; i++)
+            for (int i=0; i < _hangman._livesLeft; i++)
                 Console.Write("♥");
 
             Console.WriteLine();
@@ -195,13 +215,13 @@ namespace Hangman.App
         }
 
 
-        private static void PrintAllCorrectCharacters(Core.Hangman hangman)
+        private static void PrintAllCorrectCharacters()
         {
 
             Console.Write("Secret word: ");
-            foreach (var character in hangman.SecretWord.ToCharArray())
+            foreach (var character in _hangman.SecretWord.ToCharArray())
             {
-                if (hangman.guesses.Contains(character) || (character == ' '))
+                if (_hangman.guesses.Contains(character) || (character == ' '))
                     Console.Write(character);
                 else
                     Console.Write("-");
@@ -210,11 +230,11 @@ namespace Hangman.App
         }
 
 
-        private static void PrintGuesses(Core.Hangman hangman)
+        private static void PrintGuesses()
         {
-            if(hangman.guesses != null && hangman.guesses.Count > 0){ 
+            if(_hangman.guesses != null && _hangman.guesses.Count > 0){ 
                 Console.Write("Your previous guesses:  ");
-                foreach (char c in hangman.guesses)
+                foreach (char c in _hangman.guesses)
                 {
                     Console.Write(c + " ");
                 }

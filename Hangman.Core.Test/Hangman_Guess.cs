@@ -82,10 +82,11 @@ namespace Hangman.Core.Test
             // Arrange
             var hangman = new Hangman("KALLE", 5);
             // Act
-            hangman.Guess("K");
             hangman.Guess("A");
+            hangman.Guess("K");
+           
             hangman.Guess("L");
-            hangman.Guess("L");
+           
             hangman.Guess("E");
             // Assert
             Assert.IsTrue(hangman.IsCorrectCompleteWord());
