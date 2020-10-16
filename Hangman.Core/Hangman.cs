@@ -12,16 +12,7 @@ namespace Hangman.Core
         private List<char> invalidList = new List<char>();
         public List<Char> guesses  {get; }
 
-        public bool KeepPlaying { 
-            get
-            {
-                return (!IsCorrectCompleteWord() && _livesLeft > 0);
-
-
-            }
-        
-        
-        }
+        public bool KeepPlaying => !IsCorrectCompleteWord() && _livesLeft > 0;
 
 
 
@@ -36,29 +27,30 @@ namespace Hangman.Core
         public GuessResult Guess(string guess)
         {           
             //1. check invalid input
-            if (IsInvalidGuess(guess))
+            if (!IsValidGuess(guess))
                 return Core.GuessResult.InvalidGuess;
             //2.Already Guessed
-            // OO: No need for "else"
-            else if (IsAlreadyGuessed(guess))
+            if (IsAlreadyGuessed(guess))
                 return Core.GuessResult.AlreadyGuessed;
-            // OO: No need for "else"
-            else
-            {
-                FeedGuessesList(guess);
+            
+            
+             FeedGuessesList(guess);
                 
 
-                //3a. Check if we should return correct or incorrect
-                // OO: detail, create a method named "IsCorrectGuess" instead
-                if (IsIncorrectGuess(guess))
-                {
-                    _livesLeft--;
-                    return Core.GuessResult.IncorrectGuess;
-                }
-                    
-                else
-                    return Core.GuessResult.CorrectGuess;
-            }            
+           
+           
+            if (IsCorrectGuess(guess))
+            {
+                
+                return Core.GuessResult.CorrectGuess;
+            }
+            else
+            { 
+                _livesLeft--;
+                return Core.GuessResult.IncorrectGuess;
+            }
+            
+                      
         }
 
         private void FeedGuessesList(string guess)
@@ -74,22 +66,22 @@ namespace Hangman.Core
                 return false;
         }
 
-        private bool IsIncorrectGuess(string guess)
+        private bool IsCorrectGuess(string guess)
         {
             if (SecretWord.Contains(guess))
-                return false;
-            else
                 return true;
+            else
+                return false;
 
         }
 
         // OO: do a IsValidGuess instead
-        private bool IsInvalidGuess(string guess)
+        private bool IsValidGuess(string guess)
         {
             if (guess == "" || guess.Length > 1 || invalidList.Contains(guess.ToCharArray()[0]))
-                return true;
-            else
                 return false;
+            else
+                return true;
         }
 
       
