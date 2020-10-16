@@ -1,3 +1,6 @@
+
+// OO: Well done :)
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Hangman.Core.Test
